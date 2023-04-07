@@ -30,7 +30,6 @@ figure figcaption{
 
 .portfolio{
     display: grid;
-    grid-template-areas: ;
     grid-template-columns: repeat(auto-fill,minmax(200px, 1fr));
     grid-auto-rows: 1fr;
     grid-gap: .2em;
