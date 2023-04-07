@@ -1,0 +1,55 @@
+:root{
+    box-sizing: border-box;
+}
+*::after::before{
+    box-sizing: inherit;
+}
+body{
+    background-color: cadetblue;
+    font-family: Calibri,sans-serif;
+}
+.portfolio{
+    max-width: 1080px;
+    margin: 0 auto;
+}
+figure{
+    margin: 0;
+}
+figure img{
+    max-width: 100%;
+    margin: 0;
+    display: block;
+}
+figure figcaption{
+    margin: 0;
+    padding: .3em .8em;
+    text-align: right;
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+}
+
+.portfolio{
+    display: grid;
+    grid-template-areas: ;
+    grid-template-columns: repeat(auto-fill,minmax(200px, 1fr));
+    grid-auto-rows: 1fr;
+    grid-gap: .2em;
+}
+
+.portfolio .featured{
+    grid-row: span 2;
+    grid-column: span 2
+}
+
+/*griddense*/
+.portfolio{
+    grid-auto-flow: dense;
+}
+figure{
+    display: flex;
+    flex-direction: column;
+}
+figure img{
+    flex:1;
+    object-fit: cover;
+}
