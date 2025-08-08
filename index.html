@@ -1,63 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>grid3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diario Personale</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="portfolio">
 
-    <figure class="featured">
-        <img src="esercizio%20grid/1.jpeg" alt="immagine">
-        <figcaption>Animale 1</figcaption>
-    </figure>
+    <div class="background-gradient"></div>
 
-    <figure >
-        <img src="esercizio%20grid/2.jpeg" alt="immagine">
-        <figcaption>Animale 2</figcaption>
-    </figure>
+    <div id="login-screen" class="screen active">
+        <div class="login-container glass-effect">
+            <svg class="lock-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm0 2a3 3 0 0 1 3 3v3H9V7a3 3 0 0 1 3-3z"></path></svg>
+            <h1>Diario Personale</h1>
+            <p>Sblocca i tuoi pensieri</p>
+            <input type="password" id="password-input" placeholder="········">
+            <button id="login-button">Accedi</button>
+            <p id="error-message" class="hidden">Password errata.</p>
+        </div>
+    </div>
 
-    <figure >
-        <img src="esercizio%20grid/3.jpeg" alt="immagine">
-        <figcaption>Animale 3</figcaption>
-    </figure>
+    <div id="app-screen" class="screen">
+        
+        <div id="calendar-view" class="view active">
+            <header class="app-header glass-effect">
+                <div id="month-navigation">
+                    <button id="prev-month-btn" class="icon-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                    <h2 id="current-month-year"></h2>
+                    <button id="next-month-btn" class="icon-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+                </div>
+                <button id="toggle-view-btn" class="icon-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                </button>
+            </header>
+            <div id="calendar-grid"></div>
+        </div>
 
-    <figure class="featured">
-        <img src="esercizio%20grid/4.jpeg" alt="immagine">
-        <figcaption>Animale 4</figcaption>
-    </figure>
+        <div id="list-view" class="view">
+             <header class="app-header glass-effect">
+                <h1>Tutti i Pensieri</h1>
+                <button id="toggle-view-btn-list" class="icon-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                </button>
+            </header>
+            <div id="thoughts-list"></div>
+        </div>
+        
+    </div>
 
-    <figure >
-        <img src="esercizio%20grid/5.jpeg" alt="immagine">
-        <figcaption>Animale 5</figcaption>
-    </figure>
+    <div id="editor-screen" class="screen">
+        <header class="app-header glass-effect">
+            <button id="back-to-calendar-btn" class="icon-btn">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            </button>
+            <h2 id="editor-date"></h2>
+            <div>
+                <button id="delete-thought-btn" class="icon-btn danger">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                </button>
+                <button id="save-thought-btn" class="icon-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                </button>
+            </div>
+        </header>
+        <textarea id="thought-textarea" placeholder="Scrivi qui..."></textarea>
+    </div>
 
-    <figure >
-        <img src="esercizio%20grid/6.jpeg" alt="immagine">
-        <figcaption>Animale 6</figcaption>
-    </figure>
-
-    <figure class="featured">
-        <img src="esercizio%20grid/7.jpeg" alt="immagine">
-        <figcaption>Animale 7</figcaption>
-    </figure>
-
-    <figure >
-        <img src="esercizio%20grid/8.jpeg" alt="immagine">
-        <figcaption>Animale 8</figcaption>
-    </figure>
-
-    <figure class="featured">
-        <img src="esercizio%20grid/9.jpeg" alt="immagine">
-        <figcaption>Animale 9</figcaption>
-    </figure>
-
-    <figure >
-        <img src="esercizio%20grid/10.jpeg" alt="immagine">
-        <figcaption>Animale 10</figcaption>
-    </figure>
-
-</div>
+    <script src="script.js"></script>
 </body>
 </html>
