@@ -1,54 +1,297 @@
-:root{
+:root {
+    /* Palette "Petrolio Profondo" */
+    --bg-color-dark: #021c1e;
+    --bg-color-petrol: #004445;
+    --glass-bg: rgba(2, 28, 30, 0.35); /* Vetro con tinta petrolio */
+    --glass-border: rgba(45, 226, 212, 0.2);
+    --accent-color: #ffc107; /* Ambra/Arancio caldo */
+    --highlight-color: #2de2d4; /* Verde menta brillante */
+    --text-color: #e8f1f2;
+    --text-color-muted: #94a3b8;
+    --danger-color: #ef4444;
+    --font-family: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
-*::after::before{
-    box-sizing: inherit;
-}
-body{
-    background-color: cadetblue;
-    font-family: Calibri,sans-serif;
-}
-.portfolio{
-    max-width: 1080px;
-    margin: 0 auto;
-}
-figure{
-    margin: 0;
-}
-figure img{
-    max-width: 100%;
-    margin: 0;
-    display: block;
-}
-figure figcaption{
-    margin: 0;
-    padding: .3em .8em;
-    text-align: right;
-    background-color: rgba(0,0,0,0.5);
-    color: white;
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color-dark);
+    color: var(--text-color);
+    overflow: hidden;
 }
 
-.portfolio{
-    display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(200px, 1fr));
-    grid-auto-rows: 1fr;
-    grid-gap: .2em;
+.background-gradient {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(circle, var(--bg-color-petrol) 0%, var(--bg-color-dark) 70%);
+    animation: gradient-animation 20s ease infinite;
 }
 
-.portfolio .featured{
-    grid-row: span 2;
-    grid-column: span 2
+@keyframes gradient-animation {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.5); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
 }
 
-/*griddense*/
-.portfolio{
-    grid-auto-flow: dense;
-}
-figure{
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    padding-top: env(safe-area-inset-top, 0); /* Spazio per la notch */
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
     display: flex;
     flex-direction: column;
 }
-figure img{
-    flex:1;
-    object-fit: cover;
+
+.screen.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.glass-effect {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+}
+
+/* --- Schermata Login --- */
+#login-screen {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.login-container {
+    padding: 2.5rem 2rem;
+    width: 90%;
+    max-width: 350px;
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+.lock-icon {
+    width: 50px;
+    height: 50px;
+    color: var(--highlight-color);
+    margin-bottom: 1rem;
+}
+
+#login-screen h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+#login-screen p {
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+    color: var(--text-color-muted);
+}
+
+#password-input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid var(--glass-border);
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    color: var(--text-color);
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    letter-spacing: 0.3em;
+}
+
+#password-input::placeholder {
+    letter-spacing: normal;
+}
+
+#password-input:focus {
+    outline: none;
+    border-color: var(--highlight-color);
+    box-shadow: 0 0 20px rgba(45, 226, 212, 0.4);
+}
+
+#login-button {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    background-image: linear-gradient(to right, #ffc107, #f7971e);
+    color: var(--bg-color-dark);
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+#login-button:hover {
+    box-shadow: 0 0 20px rgba(255, 193, 7, 0.4);
+}
+
+#login-button:active {
+    transform: scale(0.96);
+}
+
+.hidden { display: none; }
+
+#error-message {
+    margin-top: 1rem;
+    color: var(--danger-color);
+    font-weight: 500;
+}
+
+/* --- Viste App --- */
+.view {
+    display: none; flex-direction: column; height: 100%;
+    animation: viewFadeIn 0.6s forwards;
+}
+.view.active { display: flex; }
+
+.app-header {
+    /* --- MODIFICA CHIAVE QUI --- */
+    margin: 1.5rem 1rem 1rem 1rem; /* Aumentato il margine superiore a 1.5rem */
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.app-header h1, .app-header h2 { font-size: 1.5rem; font-weight: 500; }
+
+#month-navigation { display: flex; align-items: center; gap: 1rem; }
+#month-navigation h2 { min-width: 150px; text-align: center; }
+#month-navigation button { background: none; border: none; }
+
+.icon-btn {
+    background: none; border: none; color: var(--text-color-muted);
+    cursor: pointer; padding: 0.5rem; border-radius: 50%;
+    transition: all 0.3s ease; display: inline-flex;
+}
+.icon-btn:hover { color: var(--text-color); background: rgba(0, 68, 69, 0.7); }
+.icon-btn.danger:hover { color: white; background-color: var(--danger-color); }
+.icon-btn svg { width: 26px; height: 26px; }
+#save-thought-btn svg { stroke: var(--highlight-color); }
+
+/* --- Calendario --- */
+#calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    padding: 0 1rem 1rem;
+    flex-grow: 1;
+}
+
+.calendar-day {
+    width: 100%;
+    padding-bottom: 100%;
+    height: 0;
+    position: relative;
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 18px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid transparent;
+}
+/* --- NUOVA REGOLA PER CENTRARE IL NUMERO --- */
+.calendar-day span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 500;
+}
+
+.calendar-day:not(.empty):hover {
+    transform: translateY(-4px);
+    border-color: var(--glass-border);
+    background-color: var(--glass-bg);
+}
+
+.calendar-day:active { transform: translateY(-2px) scale(0.98); }
+.calendar-day.empty { background-color: transparent; cursor: default; }
+.calendar-day.empty:hover { transform: none; border-color: transparent; }
+
+.calendar-day.has-thought::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 12%;
+    width: 6px;
+    height: 6px;
+    background-color: var(--highlight-color);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--highlight-color);
+}
+
+
+/* Vista Lista */
+#thoughts-list {
+    padding: 0 1rem 1rem; overflow-y: auto; flex-grow: 1;
+}
+.thought-item {
+    padding: 1.2rem; margin-bottom: 1rem;
+    animation: listItemFadeIn 0.5s forwards; opacity: 0;
+    display: flex; justify-content: space-between; align-items: flex-start;
+}
+.thought-item-content h3 { margin-bottom: 0.5rem; font-weight: 500; color: var(--highlight-color); }
+.thought-item-content p {
+    color: var(--text-color);
+    font-weight: 300; white-space: pre-wrap; word-wrap: break-word;
+}
+#thoughts-list .icon-btn {
+    flex-shrink: 0;
+    margin-left: 1rem;
+}
+
+/* Editor */
+#editor-screen {
+    /* Margine superiore per lo schermo dell'editor */
+    padding-top: env(safe-area-inset-top, 0); 
+}
+#editor-screen .app-header {
+    margin-top: 1.5rem; /* Stesso margine della vista calendario */
+}
+#editor-screen.active { transform: translateY(0); }
+#editor-screen .app-header div { display: flex; gap: 0.5rem; }
+
+#thought-textarea {
+    flex-grow: 1; width: 100%; padding: 1.5rem;
+    border: none; background: none; color: var(--text-color);
+    font-size: 1.2rem; line-height: 1.6;
+    font-family: var(--font-family); resize: none;
+    font-weight: 300;
+}
+#thought-textarea:focus { outline: none; }
+
+/* Animazioni */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+@keyframes viewFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes listItemFadeIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
 }
