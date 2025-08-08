@@ -87,8 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const dayCell = document.createElement('div');
             dayCell.classList.add('calendar-day');
             
-            // --- MODIFICA CHIAVE QUI ---
-            // Il numero viene inserito in uno <span> per poterlo centrare con precisione via CSS
+            // Il numero viene inserito in uno <span> per poterlo centrare con precisione
             dayCell.innerHTML = `<span>${day}</span>`;
             
             const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
@@ -197,3 +196,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// --- Registrazione del Service Worker ---
+// Controlliamo se il browser supporta i service worker
+if ('serviceWorker' in navigator) {
+  // Usiamo l'evento 'load' per non rallentare il caricamento iniziale della pagina
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('./sw.js') // Registriamo il nostro file sw.js
+      .then((registration) => {
+        console.log('Service Worker registrato con successo:', registration);
+      })
+      .catch((error) => {
+        console.log('Registrazione del Service Worker fallita:', error);
+      });
+  });
+}
