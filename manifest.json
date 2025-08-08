@@ -1,0 +1,23 @@
+{
+  "name": "Diario Personale",
+  "short_name": "Diario",
+  "description": "Un diario personale per scrivere e salvare i tuoi pensieri.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#021c1e",
+  "theme_color": "#004445",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./icons/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "./icons/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ]
+}
